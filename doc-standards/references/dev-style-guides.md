@@ -1,9 +1,10 @@
-# House style digest — Google developer documentation style guide + Microsoft Writing Style Guide
+# Developer docs style — Google developer documentation style guide + Microsoft Writing Style Guide
 
-The two de-facto standards for developer docs. They agree on ~90% of rules; where they
-differ, this digest picks the Google position (it is the more common default in
-docs-as-code and has a maintained Vale package). Source of truth:
-https://developers.google.com/style and https://learn.microsoft.com/style-guide.
+Where the ECMWF style guidelines do not provide sufficient or specific enough guidance on style for technical documentation, follow the Google developer documentation style guide; failing that, refer to the Microsoft Writing Style Guide. These are the two de-facto standards for developer docs.
+
+If a rule in the Google or Microsoft style conflicts with the ECMWF style that has already been applied, defer to ECMWF style.
+
+The respective sources of truth are https://developers.google.com/style and https://learn.microsoft.com/style-guide.
 
 ## Voice and person
 
@@ -11,7 +12,7 @@ https://developers.google.com/style and https://learn.microsoft.com/style-guide.
   for actions the reader takes. ("We recommend" is fine for the project's own opinion.)
 - **Present tense.** "The command prints" not "the command will print". Future tense
   only for genuinely future events (deprecation dates).
-- **Conversational but precise.** Contractions are fine ("don't"). Slang and idioms are
+- **Precise.** Contractions are fine ("don't"). Slang and idioms are
   not — a global audience (and a translator) must parse every sentence literally.
 
 ## Words to ban outright
@@ -48,8 +49,7 @@ https://developers.google.com/style and https://learn.microsoft.com/style-guide.
 
 - Code font for: commands, filenames, paths, parameter names, values, API elements.
 - Placeholders in code: `UPPER_SNAKE` or `<angle-brackets>`, explained on first use.
-- Oxford (serial) comma always.
-- Numbers: spell out zero through nine in prose, numerals for 10+, always numerals
+- Numbers: spell out numbers up to ten in prose, numerals for 11+, always numerals
   with units (5 MB) and in UI/steps.
 - Alt text on every image; don't put load-bearing information only in a screenshot.
 

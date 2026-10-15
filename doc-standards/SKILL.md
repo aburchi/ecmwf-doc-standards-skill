@@ -1,27 +1,31 @@
 ---
 name: doc-standards
-description: Documentation writing-quality standards — controlled language (ASD-STE100), Google/Microsoft style guide rules, ISO 24495 plain language, AI/agent readability (llms.txt, self-contained sections), and a machine-checkable lint gate. Use whenever writing or reviewing ANY documentation prose — README, API reference, tutorial, how-to, changelog, error message, code comment blocks, llms.txt — even if the user only says "write docs", "document this", "improve the README", "docs smell like AI", or "make the docs clearer". Structure/coverage questions (which doc types exist) belong to a Diátaxis-structure skill if one is installed; THIS skill governs how each sentence and section is written, and provides the lint gate to verify it.
+description: Documentation writing-quality standards — controlled language (modified ASD-STE100), ECMWF style guide rules, Google/Microsoft for developer docs, ISO 24495 plain language, AI/agent readability (llms.txt, self-contained sections), and a machine-checkable lint gate. Use whenever writing or reviewing ANY documentation prose — whether software documentation such as README, API reference, tutorial, how-to, changelog, error message, code comment blocks, llms.txt, or an organisation's internal documentation — even if the user only says "write docs", "document this", "improve the README", "docs smell like AI", or "make the docs clearer". Structure/coverage questions (which doc types exist) belong to a Diátaxis-structure skill if one is installed; THIS skill governs how each sentence and section is written, and provides the lint gate to verify it.
 metadata:
   type: reference
-  sources: ASD-STE100 Issue 9 (2025-01), Google developer documentation style guide, Microsoft Writing Style Guide, ISO 24495-1:2023, llms.txt spec
+  sources: ASD-STE100 Issue 9 (2025-01), ECMWF style guidelines for writing in English, Google developer documentation style guide, Microsoft Writing Style Guide, ISO 24495-1:2023, llms.txt spec
 ---
 
 # doc-standards — write documentation that survives translation, retrieval, and skepticism
 
 Documentation written by an LLM has a smell: elegant-variation synonyms, subordinate
 clauses, filler, hedging. The fix is not "write better" — it is adopting the constraints
-professional documentation systems already use. This skill stacks five criteria layers,
-from structure down to the word, and ends in a machine gate.
+professional documentation systems already use.
 
-## The five layers
+Equally, documentation written by engineers, scientists and other professionals who are not trained in technical writing can often be improved in terms of written quality: clarity, consistency, spelling, formatting, and adherence to style.
+
+This skill stacks six criteria layers, from structure down to the word, and ends in a machine gate, to improve documentation quality and readability for both humans and agents. It is **not** a style guide, but a skill that implements the rules of multiple style guides and standards, and checks them automatically.
+
+## The six layers
 
 | Layer | Question it answers | Source standard |
 |-------|--------------------|-----------------|
 | 1. Structure | Which document am I writing, for whom? | Diátaxis + ISO 24495 |
-| 2. Controlled language | Is each sentence unambiguous? | ASD-STE100 |
-| 3. House style | Is it consistent with developer-docs convention? | Google / Microsoft style guides |
-| 4. AI readability | Can an agent retrieve and use each section alone? | llms.txt + retrieval practice |
-| 5. Verification | Can a machine confirm 2–4? | Vale / bundled checker |
+| 2. Controlled language | Is each sentence unambiguous? | Modified ASD-STE100 |
+| 3. ECMWF style | Is it consistent with ECMWF written style? | ECMWF style guidelines for writing in English |
+| 4. Developer docs style | Is technical documentation consistent with developer-docs convention? | Google/Microsoft style guides |
+| 5. AI readability | Can an agent retrieve and use each section alone? | llms.txt + retrieval practice |
+| 6. Verification | Can a machine confirm 2–5? | Vale / bundled checker |
 
 ## Workflow
 
@@ -33,7 +37,7 @@ promises safe success, a reference promises completeness, a how-to promises a wo
 result, an explanation promises understanding. Mixing them is the #1 structural defect.
 
 - Generating new docs or auditing coverage → if a Diátaxis-structure skill is installed
-  (for example gstack's `document-generate` / `document-release`), invoke it — it owns the
+  (for example moiri-gamboni's `diataxis-skill`), invoke it — it owns the
   Diátaxis map. Otherwise classify and scaffold the document type yourself before writing.
   This skill governs the prose inside whatever gets scaffolded.
 - Then apply ISO 24495's reader-first gate: state who the reader is and what they must be
@@ -41,29 +45,30 @@ result, an explanation promises understanding. Mixing them is the #1 structural 
   plain-language principles — relevant, findable, understandable, usable — are the
   acceptance criteria for the whole document, not decoration.
 
-### 2. Draft under controlled language (ASD-STE100)
+### 2. Draft under controlled language (Modified ASD-STE100)
 
 Read `references/ste100.md` before drafting anything longer than a paragraph. The core
 discipline, always in force even without reading the reference:
 
-- **One word, one meaning.** Pick one term per concept and repeat it everywhere.
-  Synonym variation ("verify / check / confirm / ensure") is the strongest LLM tell
-  and the #1 source of reader doubt ("is a 'token' the same as the 'key' above?").
 - **Procedural sentences ≤ 20 words, descriptive ≤ 25.** One instruction per sentence.
 - **Active voice, imperative for instructions.** "Run the command", never
   "the command should be run".
-- **Simple tenses only.** No present perfect ("has been deprecated" → "was deprecated
+- **Simple tenses only** in technical documentation. No present perfect ("has been deprecated" → "was deprecated
   in v2.1").
 - **Warnings before the step they protect**, in command form.
 
-### 3. House style pass (Google/Microsoft)
+### 3. ECMWF style pass
 
-Read `references/style-guides.md` when writing developer-facing docs. Highest-value rules:
+Read `references/ECMWF-style-guidelines.md` when writing any type of documentation prose. These are organisation-wide, high-level rules for written style, agnostic to content type, that apply by default before any rules specific to content type. Highest-value rules: nouns and verbs, sentence structure, active and passive, reference to ECMWF, abbreviations and acronyms.
+
+### 4. Developer docs style pass (Google/Microsoft)
+
+Read `references/dev-style-guides.md` when writing developer-facing docs. Highest-value rules:
 second person, present tense, sentence-case headings, goal-before-action steps
 ("To enable X, run:"), descriptive link text, no "simply/just/easy/please", global-audience
 English (no idioms, no "e.g./i.e."), consistent bold-UI/code-font conventions.
 
-### 4. AI-readability pass
+### 5. AI-readability pass
 
 Read `references/ai-readability.md` when the docs will be consumed by agents, RAG
 pipelines, or coding assistants — which in practice is all public docs now (GitBook
@@ -72,14 +77,14 @@ must make sense retrieved alone** — no "as mentioned above", no split concepts
 parameter tables, realistic examples with expected output, and an `llms.txt` index at
 the docs root.
 
-### 5. De-slop and gate
+### 6. De-slop and gate
 
 - If an AI-tell removal skill is installed (for example `stop-slop`), run its checklist
   on the final prose — it owns that layer; don't re-derive its rules here. Without one,
   sweep for the classic tells: filler openers, "not X but Y" contrasts, adverb padding,
   pull-quote sentences, em-dash overuse. One precedence rule: where literary rhythm
-  advice ("vary sentence length") conflicts with STE100 uniformity in *procedural*
-  steps, STE100 wins inside numbered procedures; rhythm wins in explanations.
+  advice ("vary sentence length") conflicts with modified STE100 uniformity in *procedural*
+  steps, modified STE100 wins inside numbered procedures; rhythm wins in explanations.
 - Run the machine gate:
 
 ```bash
